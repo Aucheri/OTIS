@@ -2,13 +2,13 @@
 
 The Online Therapist Interactive System
 
-<img src="https://github.com/Aucheri/AI-Wellness-Bot/blob/main/frontend/src/lib/assets/AITherapistLogo.png" />
+<img src="frontend/src/lib/assets/AITherapistLogo.png" />
 
 ***What is it?***
 
 As the name suggests, it is an online therapist. It uses ChatGPT to respond and support users, recommending a myriad of online resources to ensure that everyone's mental health is being cared for in a personal way.
 
-It is served through an API, but there is also a demo frontend in the **[Frontend](https://github.com/Aucheri/AI-Wellness-Bot/tree/main/frontend)** folder. It runs on Svelte and is mainly within a component called Chatbox.svelte in the lib folder. It assumes the API is running on 'localhost:5156/message', but is easily changeable
+It is served through an API, but there is also a demo frontend in the **[Frontend](/frontend)** folder. It runs on Svelte and is mainly within a component called Chatbox.svelte in the lib folder. It assumes the API is running on 'localhost:5156/message', but is easily changeable
 
 **What do you need to get started?**
 
