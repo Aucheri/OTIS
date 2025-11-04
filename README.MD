@@ -18,4 +18,4 @@ You also need an [API key from OpenAI](https://platform.openai.com/docs/quicksta
 
 For the frontend you need [NodeJS](https://nodejs.org/en/download/current) and [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm). You can open the "api-and-frontend-startup.bat" if you are on Windows.
 
- If you are on MacOS or Linux, you can "dotnet run" the root and then open the frontend folder and run "npm run dev". I will work on making an sh script. 
+ If you are on MacOS or Linux, you can "dotnet run" the root and then open the frontend folder and run "npm run dev".
