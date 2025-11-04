@@ -19,7 +19,12 @@ app.UseHttpsRedirection();
 
 app.MapPost("/message", async (Request request) =>
 {
-    return Chat.Message(request);
+	string response = Chat.Message(request);
+
+	request.Messages.Add(request.Message);
+	request.Messages.Add(response);
+
+	return request.Messages;
 });
 
 app.Run();
