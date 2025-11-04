@@ -2,6 +2,8 @@
 
 The Online Therapist Interactive System
 
+<img src="https://github.com/Aucheri/AI-Wellness-Bot/blob/main/frontend/src/lib/assets/AITherapistLogo.png" />
+
 ***What is it?***
 
 As the name suggests, it is an online therapist. It uses ChatGPT to respond and support users, recommending a myriad of online resources to ensure that everyone's mental health is being cared for in a personal way.
