@@ -3,3 +3,5 @@
 
 *.db
 *.db.lock
+
+*/node_modules/
