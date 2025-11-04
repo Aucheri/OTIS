@@ -3,3 +3,6 @@
 
 *.db
 *.db.lock
+
+*/.svelte-kit/
+*/node_modules/
