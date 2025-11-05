@@ -1,6 +1,6 @@
 <script>
-	import '../app.css';
 	import favicon from '$lib/assets/AITherapistLogo.ico';
+	import '../app.css';
 
 	let { children } = $props();
 </script>
