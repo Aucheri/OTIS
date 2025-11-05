@@ -5,6 +5,7 @@
 	let message = $state('');
 	let messageHistory: string[] = $state([]);
 	let element: HTMLDivElement = $state();
+	let inputBox: HTMLTextAreaElement = $state();
 	let isSending = $state(false);
 
 	async function SendData(event: SubmitEvent) {
@@ -23,6 +24,7 @@
 
 		await tick();
 
+		ResizeInput();
 		element.scroll({ top: element.scrollHeight, behavior: 'smooth' });
 		const response = await fetch('http://localhost:5156/message', {
 			method: 'POST',
@@ -40,7 +42,21 @@
 		isSending = false;
 	}
 
-	function input(ev) {}
+	function input(ev: KeyboardEvent & { currentTarget: EventTarget & HTMLTextAreaElement }) {
+		ResizeInput();
+
+		console.log(ev);
+
+		if (ev.key === 'Enter' && !ev.shiftKey) {
+			ev.preventDefault?.();
+			SendData(new Event('submit') as SubmitEvent);
+		}
+	}
+
+	function ResizeInput() {
+		inputBox.style.height = '';
+		inputBox.style.height = inputBox.scrollHeight + 'px';
+	}
 </script>
 
 <div class="grid h-full grid-rows-[1fr_auto] gap-4 p-10">
@@ -78,17 +94,19 @@
 
 	<form
 		onsubmit={SendData}
-		class="relative left-1/2 flex h-fit max-h-36 min-h-12 -translate-x-1/2 items-center rounded-2xl bg-neutral-800 shadow-2xl"
+		class="relative left-1/2 flex h-auto max-h-36 min-h-12 -translate-x-1/2 items-end justify-between gap-4 rounded-2xl bg-neutral-800 p-2 shadow-2xl"
 	>
-		<input
+		<textarea
 			bind:value={message}
-			class=" absolute max-h-36 min-h-12 w-11/12 resize-none border-red-400 bg-transparent wrap-anywhere text-white ring-0 outline-0 placeholder:text-neutral-300"
+			bind:this={inputBox}
+			onkeypress={input}
+			class="h-12 max-h-full min-h-12 w-11/12 resize-none border-none bg-transparent wrap-anywhere text-white ring-0 outline-0 placeholder:text-neutral-300"
 			placeholder="Ask for help with your mental health"
-		/>
+		></textarea>
 		<button
 			type="submit"
 			disabled={isSending || message.length <= 0}
-			class="absolute right-0 bottom-1/2 h-4/5 -translate-x-2 translate-y-1/2 cursor-pointer rounded-full bg-white p-2 disabled:cursor-not-allowed disabled:bg-neutral-500"
+			class="h-10 cursor-pointer rounded-full bg-white p-2 disabled:cursor-not-allowed disabled:bg-neutral-500"
 		>
 			<img src="up-arrow.svg" alt="Arrow Up" class="z-10 aspect-square h-full" />
 		</button>
