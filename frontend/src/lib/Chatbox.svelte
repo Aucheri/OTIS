@@ -59,11 +59,11 @@
 	}
 </script>
 
-<div class="grid h-full grid-rows-[1fr_auto] gap-4 p-10">
+<div class="grid h-full grid-rows-[1fr_auto] gap-4 px-5 py-10 sm:px-10">
 	{#if messageHistory.length <= 0}
-		<div class="flex flex-col items-center justify-center">
-			<h2 class="text-6xl font-bold">Chat to Otis</h2>
-			<h3 class="text-3xl">Get help with your mental health!</h3>
+		<div class="flex flex-col items-center justify-center gap-2">
+			<h2 class="text-center text-5xl font-bold sm:text-6xl">Chat to Otis</h2>
+			<h3 class="text-center text-2xl sm:text-3xl">Get help with your mental health!</h3>
 		</div>
 	{:else}
 		<div class="flex flex-col gap-2 overflow-x-hidden overflow-y-auto" bind:this={element}>
@@ -100,6 +100,7 @@
 			bind:value={message}
 			bind:this={inputBox}
 			onkeypress={input}
+			name="chat-input"
 			class="h-12 max-h-full min-h-12 w-11/12 resize-none border-none bg-transparent wrap-anywhere text-white ring-0 outline-0 placeholder:text-neutral-300"
 			placeholder="Ask for help with your mental health"
 		></textarea>
