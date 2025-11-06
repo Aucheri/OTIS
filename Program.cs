@@ -1,4 +1,4 @@
-using AIWellness.Chat;
+using AIWellness.claude;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,14 +30,25 @@ app.UseHttpsRedirection();
 app.UseHttpsRedirection();
 
 
-app.MapPost("/message", async (Request request) =>
+app.MapPost("/message", async (HttpContext httpContext) =>
 {
-	string response = Chat.Message(request);
+	var request = await httpContext.Request.ReadFromJsonAsync<Request>();
+	if (request == null)
+	{
+		return Results.BadRequest("Invalid request body");
+	}
+
+	string? response = await Chat.AWSChat(request);
+
+	if (response == null)
+	{
+		return Results.Ok(string.Empty);
+	}
 
 	request.Messages.Add(request.Message);
 	request.Messages.Add(response);
 
-	return request.Messages;
+	return Results.Ok(request.Messages);
 });
 
 app.Run();
