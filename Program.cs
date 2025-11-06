@@ -42,8 +42,9 @@ app.MapPost("/message", async (HttpContext httpContext) =>
 
 	if (response == null)
 	{
-		return Results.Ok(string.Empty);
+		return Results.BadRequest("Response responded with nothing");
 	}
+
 
 	request.Messages.Add(request.Message);
 	request.Messages.Add(response);

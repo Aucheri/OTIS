@@ -67,22 +67,12 @@ namespace AIWellness.claude
                 }
             }
 
-                if (messages.Count == 0)
-                {
-                    messages.Add(new Message
-                    {
-                        Role = "user",
-                        Content = [ new ContentBlock { Text = request.Message } ]
-                    });
-                }
-                else if (messages[0].Role != "user")
-                {
-                    messages.Insert(0, new Message
-                    {
-                        Role = "user",
-                        Content = [ new ContentBlock { Text = request.Message } ]
-                    });
-                }
+			messages.Add(new Message
+			{
+				Role = "user",
+				Content = [new ContentBlock { Text = request.Message }]
+			});
+			
 
             var response = await GenerateConversationAsync(bedrockClient, ModelId, SystemPrompts, messages);
 
@@ -92,7 +82,7 @@ namespace AIWellness.claude
                 return response.Output.Message.Content[0].Text;
             }
 
-            return null;
+            return "NO RESPONSE";
         }
         /// <summary>
         /// Generates a conversation by sending messages to the Amazon Bedrock model.
