@@ -8,7 +8,7 @@ namespace AIWellness.claude
     
     class Chat
     {
-        private const string ModelId = "anthropic.claude-3-sonnet-20240229-v1:0";
+        private const string ModelId = "amazon.nova-micro-v1:0";
 
         private static readonly List<string> SystemPrompts = new()
         {
@@ -39,7 +39,7 @@ namespace AIWellness.claude
         {
             var config = new AmazonBedrockRuntimeConfig
             {
-                RegionEndpoint = RegionEndpoint.EUNorth1 // Use your region,
+                RegionEndpoint = RegionEndpoint.EUWest2 // Use your region,
             };
 
             using var bedrockClient = new AmazonBedrockRuntimeClient(config);
@@ -67,6 +67,23 @@ namespace AIWellness.claude
                 }
             }
 
+                if (messages.Count == 0)
+                {
+                    messages.Add(new Message
+                    {
+                        Role = "user",
+                        Content = [ new ContentBlock { Text = request.Message } ]
+                    });
+                }
+                else if (messages[0].Role != "user")
+                {
+                    messages.Insert(0, new Message
+                    {
+                        Role = "user",
+                        Content = [ new ContentBlock { Text = request.Message } ]
+                    });
+                }
+
             var response = await GenerateConversationAsync(bedrockClient, ModelId, SystemPrompts, messages);
 
             // Add the response message if it is not null
@@ -93,12 +110,6 @@ namespace AIWellness.claude
                 Temperature = 0.5f
             };
 
-            // Additional model fields as a document
-            var additionalModelFields = new Document(new Dictionary<string, Document>
-            {
-                { "top_k", new Document(200) }
-            });
-
             // Prepare system content blocks
             var systemContentBlocks = systemPrompts.Select(prompt => new SystemContentBlock { Text = prompt }).ToList();
 
@@ -112,8 +123,6 @@ namespace AIWellness.claude
                 Messages = messages,
                 System = systemContentBlocks,
                 InferenceConfig = inferenceConfig,
-                AdditionalModelResponseFieldPaths = additionalModelResponseFieldPaths,
-                AdditionalModelRequestFields = additionalModelFields
             };
 
             // Send the request and return the response
