@@ -1,4 +1,4 @@
-using AIWellness.claude;
+using OTIS.OTIS;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +38,9 @@ app.MapPost("/message", async (HttpContext httpContext) =>
 		return Results.BadRequest("Invalid request body");
 	}
 
-	string? response = await Chat.AWSChat(request);
+	AWS chatBot = new();
+
+	string? response = await chatBot.Chat(request);
 
 	if (response == null)
 	{
